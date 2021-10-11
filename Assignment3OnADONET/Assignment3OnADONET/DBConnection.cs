@@ -59,12 +59,7 @@ namespace Assignment3OnADONET
             return dt;
         }
 
-        public DataTable GetProjects()
-        {
-            string query = "select * from Project";
-            DataTable dt = ExecuteQuery(query);
-            return dt;
-        }
+       
         public DataTable GetEmployeeByDeptId(int dept_id)
         {
             string query = "select * from Employee where dept_number=" + dept_id;
@@ -123,5 +118,47 @@ namespace Assignment3OnADONET
             ExecuteQuery(query);
         }
 
+
+
+
+        public void InsertProject(string name, string startdate)
+        {
+            string query = "insert into Project values ('" + name + "','"+ startdate + "')";
+            ExecuteQuery(query);
+        }
+
+        public DataTable GetProjects()
+        {
+            
+            string query = "select * from Project";
+            DataTable dt = ExecuteQuery(query);
+            return dt;
+        }
+
+
+        public void UpdateProject(int proj_number, string proj_name, string startdate)
+        {
+
+            string query = "update Project set proj_name='" + proj_name + "',startdate='"+startdate+"' where project_number=" + proj_number;
+            ExecuteQuery(query);
+    
+        }
+
+        public DataTable GetProjectByNum(int proj_num)
+        {
+
+            string query = "select * from Project where project_number=" + proj_num;
+            DataTable dt = ExecuteQuery(query);
+            return dt;
+        }
+
+        public void DeleteProject(int num)
+        {
+            string query = "delete from Project where project_number=" + num;
+            ExecuteQuery(query);
+        }
+
+
     }
+
 }
