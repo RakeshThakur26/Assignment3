@@ -43,7 +43,9 @@ namespace Assignment3OnADONET
 
         protected void btnReset_Click(object sender, EventArgs e)
         {
-
+            proj_name.Text = string.Empty;
+            project_number.Text = string.Empty;
+            startdate.Text = string.Empty;
         }
 
         protected void gvProject_RowCommand(object sender, GridViewCommandEventArgs e)

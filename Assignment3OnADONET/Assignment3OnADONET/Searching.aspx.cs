@@ -14,12 +14,14 @@ namespace Assignment3OnADONET
 
         }
 
+        
         protected void btnDeptSearch_Click(object sender, EventArgs e)
         {
 
             DBConnection db = new DBConnection();
             Emp_search.Text = string.Empty;
 
+            // displaying Employee details Gridview on click
             DataTable Dt = db.GetEmployeeByDeptId(Convert.ToInt32(Dept_search.Text));
             gvEmployeeDetailsBySearch.DataSource = Dt;
             gvEmployeeDetailsBySearch.DataBind();
