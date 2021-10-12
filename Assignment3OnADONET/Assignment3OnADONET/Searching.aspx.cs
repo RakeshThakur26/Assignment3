@@ -22,8 +22,8 @@ namespace Assignment3OnADONET
             Emp_search.Text = string.Empty;
 
             // displaying Employee details Gridview on click
-            DataTable Dt = db.GetEmployeeByDeptId(Convert.ToInt32(Dept_search.Text));
-            gvEmployeeDetailsBySearch.DataSource = Dt;
+            DataTable dtDepartment = db.GetEmployeeByDeptId(Convert.ToInt32(Dept_search.Text));
+            gvEmployeeDetailsBySearch.DataSource = dtDepartment;
             gvEmployeeDetailsBySearch.DataBind();
            
         }
@@ -33,8 +33,8 @@ namespace Assignment3OnADONET
             DBConnection db = new DBConnection();
             Dept_search.Text = string.Empty;
 
-            DataTable Dt = db.GetEmployeeById(Convert.ToInt32(Emp_search.Text));
-            gvEmployeeDetailsBySearch.DataSource = Dt;
+            DataTable dtEmployees = db.GetEmployeeById(Convert.ToInt32(Emp_search.Text));
+            gvEmployeeDetailsBySearch.DataSource = dtEmployees;
             gvEmployeeDetailsBySearch.DataBind();
 
 

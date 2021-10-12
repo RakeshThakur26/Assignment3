@@ -12,8 +12,8 @@ namespace Assignment3OnADONET
         protected void Page_Load(object sender, EventArgs e)
         {
             DBConnection db = new DBConnection();
-            DataTable Result = db.GetDepartment();
-            gvDeptDetails.DataSource = Result;
+            DataTable dtDeptResult = db.GetDepartment();
+            gvDeptDetails.DataSource = dtDeptResult;
             gvDeptDetails.DataBind();
         }
 
@@ -22,8 +22,8 @@ namespace Assignment3OnADONET
             DBConnection db = new DBConnection();
             db.InsertDepartment(dept_name.Text);
 
-            DataTable Result = db.GetDepartment();
-            gvDeptDetails.DataSource = Result;
+            DataTable dtDeptResult = db.GetDepartment();
+            gvDeptDetails.DataSource = dtDeptResult;
             gvDeptDetails.DataBind();
         }
 
@@ -32,15 +32,13 @@ namespace Assignment3OnADONET
             DBConnection db = new DBConnection();
             db.UpdateDepartment(Convert.ToInt32(dept_number.Text),dept_name.Text);
 
-            DataTable Result = db.GetDepartment();
-            gvDeptDetails.DataSource = Result;
+            DataTable dtDeptResult = db.GetDepartment();
+            gvDeptDetails.DataSource = dtDeptResult;
             gvDeptDetails.DataBind();
         }
 
         protected void gvDeptDetails_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
-
         }
 
         protected void gvDeptDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -56,9 +54,9 @@ namespace Assignment3OnADONET
             {
 
                 DBConnection db = new DBConnection();
-                DataTable dt = db.GetDepartmentByNum(Dept_num);
-                dept_number.Text = dt.Rows[0][0].ToString();
-                dept_name.Text = dt.Rows[0][1].ToString();
+                DataTable dtDeptResult = db.GetDepartmentByNum(Dept_num);
+                dept_number.Text = dtDeptResult.Rows[0][0].ToString();
+                dept_name.Text = dtDeptResult.Rows[0][1].ToString();
                
             }
             else if (e.CommandName == "Delete")
@@ -66,11 +64,9 @@ namespace Assignment3OnADONET
                 DBConnection db = new DBConnection();
                 db.DeleteDept(Dept_num);
                
-                DataTable Result = db.GetDepartment();
-                gvDeptDetails.DataSource = Result;
+                DataTable dtDeptResult = db.GetDepartment();
+                gvDeptDetails.DataSource = dtDeptResult;
                 gvDeptDetails.DataBind();
-               
-
             }
         }
 
@@ -78,8 +74,6 @@ namespace Assignment3OnADONET
         {
             dept_number.Text = string.Empty;
             dept_name.Text = string.Empty;
-
-
         }
     }
 }

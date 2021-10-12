@@ -12,8 +12,8 @@ namespace Assignment3OnADONET
         protected void Page_Load(object sender, EventArgs e)
         {
             DBConnection db = new DBConnection();
-            DataTable Result = db.GetProjects();
-            gvProject.DataSource = Result;
+            DataTable dtProjectResult = db.GetProjects();
+            gvProject.DataSource = dtProjectResult;
             gvProject.DataBind();
 
         }
@@ -25,8 +25,8 @@ namespace Assignment3OnADONET
             DBConnection db = new DBConnection();
             db.InsertProject(proj_name.Text, startdate.Text);
 
-            DataTable Result = db.GetProjects();
-            gvProject.DataSource = Result;
+            DataTable dtProjectResult = db.GetProjects();
+            gvProject.DataSource = dtProjectResult;
             gvProject.DataBind();
         }
 
@@ -35,8 +35,8 @@ namespace Assignment3OnADONET
             DBConnection db = new DBConnection();
             db.UpdateProject(Convert.ToInt32(project_number.Text), proj_name.Text, startdate.Text);
 
-            DataTable Result = db.GetProjects();
-            gvProject.DataSource = Result;
+            DataTable dtProjectResult = db.GetProjects();
+            gvProject.DataSource = dtProjectResult;
             gvProject.DataBind();
 
         }
@@ -53,24 +53,21 @@ namespace Assignment3OnADONET
 
             int projId = Convert.ToInt32(e.CommandArgument);
             if (e.CommandName == "Edit")
-            {
-
+            { 
                 DBConnection db = new DBConnection();
-                DataTable dt = db.GetProjectByNum(projId);
-                project_number.Text = dt.Rows[0][0].ToString();
-                proj_name.Text = dt.Rows[0][1].ToString();
-                startdate.Text = dt.Rows[0][2].ToString();
+                DataTable dtProject = db.GetProjectByNum(projId);
+                project_number.Text = dtProject.Rows[0][0].ToString();
+                proj_name.Text = dtProject.Rows[0][1].ToString();
+                startdate.Text = dtProject.Rows[0][2].ToString();
             }
             else if (e.CommandName == "Delete")
             {
                 DBConnection db = new DBConnection();
                 db.DeleteProject(projId);
 
-                DataTable Result = db.GetProjects();
-                gvProject.DataSource = Result;
+                DataTable dtProjectResult = db.GetProjects();
+                gvProject.DataSource = dtProjectResult;
                 gvProject.DataBind();
-
-
             }
         }
 

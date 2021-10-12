@@ -18,15 +18,20 @@ namespace Assignment3OnADONET
             gvEmployeeDetails.DataBind();
             if (!IsPostBack)
             {
-                DataTable dt = db.GetDeptIds();
+                DataTable dtDeptResult = db.GetDeptIds();
                 dept_number.Items.Add("-- Choose --");
-                DataTable dt2 = db.GetProjects();
+                DataTable dtProjResult = db.GetProjects();
                 project_number.Items.Add("-- Choose --");
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                for (int i = 0; i < dtDeptResult.Rows.Count; i++)
                 {
-                    dept_number.Items.Add(new ListItem(dt.Rows[i][0].ToString() + " - " + dt.Rows[i][1], dt.Rows[i][0].ToString()));
-                    project_number.Items.Add(new ListItem(dt2.Rows[i][0].ToString() + " - " + dt2.Rows[i][1], dt2.Rows[i][0].ToString()));
+                    dept_number.Items.Add(new ListItem(dtDeptResult.Rows[i][0].ToString() + " - " + dtDeptResult.Rows[i][1], dtDeptResult.Rows[i][0].ToString()));
+                }
+
+                for (int i = 0; i < dtProjResult.Rows.Count; i++)
+                {
+                    project_number.Items.Add(new ListItem(dtProjResult.Rows[i][0].ToString() + " - " + dtProjResult.Rows[i][1], dtProjResult.Rows[i][0].ToString()));
+
                 }
             }
         }
@@ -39,8 +44,8 @@ namespace Assignment3OnADONET
             
             db.InsertEmployee(title.Text, first_name.Text, last_name.Text, gender.Text, DOB.Text, Hired_date.Text, deptId, projId);
 
-            DataTable Result = db.GetEmployees();
-            gvEmployeeDetails.DataSource = Result;
+            DataTable dtEmployeeResult = db.GetEmployees();
+            gvEmployeeDetails.DataSource = dtEmployeeResult;
             gvEmployeeDetails.DataBind();
 
         }
@@ -53,8 +58,8 @@ namespace Assignment3OnADONET
 
 
             db.UpdateEmployee(Convert.ToInt32(emp_id.Text),title.Text, first_name.Text, last_name.Text, gender.Text, DOB.Text.ToString(), Hired_date.Text.ToString(), DeptId, projId);
-            DataTable Result = db.GetEmployees();
-            gvEmployeeDetails.DataSource = Result;
+            DataTable dtEmployeeResult = db.GetEmployees();
+            gvEmployeeDetails.DataSource = dtEmployeeResult;
             gvEmployeeDetails.DataBind();
         }
 
@@ -64,25 +69,25 @@ namespace Assignment3OnADONET
             if (e.CommandName == "Edit")
             {
                 DBConnection db = new DBConnection();
-                DataTable dt = db.GetEmployeeById(Emp_id);
+                DataTable dtEmployeeResult = db.GetEmployeeById(Emp_id);
                
-                title.Text = dt.Rows[0][1].ToString();
-                first_name.Text = dt.Rows[0][2].ToString();
-                last_name.Text = dt.Rows[0][3].ToString();
-                gender.Text = dt.Rows[0][4].ToString();
-                DOB.Text = dt.Rows[0][5].ToString();
-                Hired_date.Text = dt.Rows[0][6].ToString();
-                dept_number.Text = dt.Rows[0][7].ToString();
-                project_number.Text = dt.Rows[0][8].ToString();
-                emp_id.Text = dt.Rows[0][0].ToString();
+                title.Text = dtEmployeeResult.Rows[0][1].ToString();
+                first_name.Text = dtEmployeeResult.Rows[0][2].ToString();
+                last_name.Text = dtEmployeeResult.Rows[0][3].ToString();
+                gender.Text = dtEmployeeResult.Rows[0][4].ToString();
+                DOB.Text = dtEmployeeResult.Rows[0][5].ToString();
+                Hired_date.Text = dtEmployeeResult.Rows[0][6].ToString();
+                dept_number.Text = dtEmployeeResult.Rows[0][7].ToString();
+                project_number.Text = dtEmployeeResult.Rows[0][8].ToString();
+                emp_id.Text = dtEmployeeResult.Rows[0][0].ToString();
             }
             else
             {
                 DBConnection db = new DBConnection();
                 db.DeleteEmployee(Emp_id);
 
-                DataTable Result = db.GetEmployees();
-                gvEmployeeDetails.DataSource = Result;
+                DataTable dtEmployeeResult = db.GetEmployees();
+                gvEmployeeDetails.DataSource = dtEmployeeResult;
                 gvEmployeeDetails.DataBind();
             }
 
@@ -97,8 +102,5 @@ namespace Assignment3OnADONET
         {
 
         }
-
-
-
     }
 }
